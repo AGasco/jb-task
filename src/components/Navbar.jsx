@@ -31,13 +31,13 @@ function Navbar() {
     <div className="Navbar">
       <ul className="Navbar-Categories">
         <NavLink to="/women" className="Navbar-Link">
-          <li>Women</li>
+          <li>WOMEN</li>
         </NavLink>
         <NavLink to="/men" className="Navbar-Link">
-          <li>Men</li>
+          <li>MEN</li>
         </NavLink>
         <NavLink to="/kids" className="Navbar-Link">
-          <li>Kids</li>
+          <li>KIDS</li>
         </NavLink>
       </ul>
       <NavLink to="/" className="Navbar-Link logo" activeClassName="ignore">

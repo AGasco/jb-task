@@ -1,18 +1,19 @@
 import Navbar from './components/Navbar';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import Categories from './components/Categories';
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route path="/" component={Categories} />
-        </Switch>
-      </Router>
+      <Navbar />
+      <Switch>
+        <Route path="/women" component={Categories} />
+        <Route path="/men" component={Categories} />
+        <Route path="/kids" component={Categories} />
+        <Route exact path="/" component={Categories} />
+      </Switch>
     </div>
   );
 }
 
-export default App;
+export default withRouter(App);

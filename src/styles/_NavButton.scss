@@ -15,6 +15,7 @@
   &-Currency {
     display: flex;
     font-size: 18px;
+    font-weight: 500;
 
     @include button;
     @include ralewayFont;

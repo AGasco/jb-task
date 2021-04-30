@@ -4,9 +4,23 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { ApolloClient, InMemoryCache } from '@apollo/client/core';
+import { ApolloProvider } from '@apollo/client/react';
+
+import { BrowserRouter as Router } from 'react-router-dom';
+
+const client = new ApolloClient({
+  uri: 'http://localhost:4000/',
+  cache: new InMemoryCache()
+});
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <Router>
+        <App />
+      </Router>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
