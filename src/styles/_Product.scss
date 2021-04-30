@@ -1,0 +1,33 @@
+.Product {
+  padding: 15px;
+  margin: 2rem 3rem;
+
+  * {
+    @include ralewayFont;
+  }
+
+  &-Picture {
+    width: $product-picture-width;
+    height: $product-picture-height;
+    object-fit: cover;
+    float: left;
+  }
+
+  &-Title {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 160%;
+  }
+
+  &-Price {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+  }
+
+  &:hover {
+    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+  }
+}

@@ -1,10 +1,15 @@
 import React from 'react';
+import Product from './Product';
 
-function Category({ title, children }) {
+function Category({ title, products }) {
   return (
-    <div>
+    <div className="Category">
       <h1>{title}</h1>
-      {children}
+      <div className="Category-Products">
+        {products?.map((p) => (
+          <Product data={p} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -25,24 +25,21 @@ const result = gql`
   }
 `;
 
-const GetProducts = () => {
+const GetCategory = () => {
   const { loading, error, data } = useQuery(result);
 
   if (loading) return 'Loading...';
   if (error) return 'Error: ' + error;
 
-  return (
-    <Category title={data.category.name} products={data.category.products} />
-  );
+  return renderCategory(data.category.name, data.category.products);
+};
+
+const renderCategory = (title, products) => {
+  return <Category title={title} products={products} />;
 };
 
 const Categories = ({ history }) => {
-  const renderCategory = () => {
-    const data = GetProducts();
-    return <Category></Category>;
-  };
-
-  return <div>{GetProducts()}</div>;
+  return <div>{GetCategory()}</div>;
 };
 
 export default withRouter(Categories);

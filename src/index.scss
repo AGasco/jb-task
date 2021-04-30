@@ -1,4 +1,7 @@
-@import './_App', './styles/variables', './styles/_Navbar', './styles/NavButton';
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap');
+
+@import './App', './styles/variables', './styles/Navbar', './styles/NavButton',
+  './styles/Category', './styles/Product', './styles/Stars';
 
 body {
   width: 100vw;

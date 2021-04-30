@@ -1,9 +1,16 @@
 $white: #fff;
-$black: #000;
+$black: #1d1f22;
 $content-width: 90vw;
 $main-text-color: #1d1f22;
 $highlight-text-color: #5ece7b;
+
 $navbar-height: 80px;
+
+$green-star: #5ece7b;
+$grey-star: #8d8f9a;
+
+$product-picture-width: 355px;
+$product-picture-height: 330px;
 
 @mixin ralewayFont {
   font-family: 'Raleway';
