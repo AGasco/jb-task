@@ -38,7 +38,7 @@ const renderCategory = (title, products) => {
   return <Category title={title} products={products} />;
 };
 
-const Categories = ({ history }) => {
+const Categories = () => {
   return <div>{GetCategory()}</div>;
 };
 

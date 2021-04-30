@@ -1,16 +1,55 @@
 .Product {
   padding: 15px;
   margin: 2rem 3rem;
+  cursor: pointer;
 
   * {
     @include ralewayFont;
   }
 
-  &-Picture {
+  &-PictureContainer {
     width: $product-picture-width;
     height: $product-picture-height;
+
+    position: relative;
+  }
+
+  &-Picture {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     float: left;
+  }
+
+  &:hover {
+    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+
+    .Product-IconBtn {
+      opacity: 1;
+    }
+  }
+
+  &-IconBtn {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+
+    @include button;
+  }
+
+  &-IconContainer {
+    &.cart {
+      background-color: $highlight-text-color;
+      border-radius: 100%;
+
+      position: absolute;
+      bottom: -20px;
+      right: 15px;
+
+      width: 52px;
+      height: 52px;
+
+      filter: drop-shadow(0px 4px 11px rgba(29, 31, 34, 0.1));
+    }
   }
 
   &-Title {
@@ -27,7 +66,23 @@
     line-height: 160%;
   }
 
-  &:hover {
-    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+  &-Icon {
+    position: absolute;
+
+    &.like {
+      top: 16px;
+      right: 16px;
+      width: 20px;
+      height: 20px;
+    }
+
+    &.cart {
+      width: 24px;
+      height: 24px;
+      color: white;
+
+      right: 15px;
+      top: 15px;
+    }
   }
 }

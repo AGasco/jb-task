@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Stars from './Stars';
+
+import HeartIcon from '../assets/Heart.png';
+import CartIcon from '../assets/emptyCart.png';
 
 function Product({ data }) {
   const selectCorrectPrice = (prices) => {
@@ -17,9 +20,35 @@ function Product({ data }) {
       return Math.floor(Math.random() * 100);
     };
 
+    const handleLikeClick = () => {};
+
+    const handleAddToCartClick = () => {};
+
     return (
       <div className="Product">
-        <img className="Product-Picture" src={gallery[0]} alt={`${name}'s`} />
+        <div className="Product-PictureContainer">
+          <img className="Product-Picture" src={gallery[0]} alt={`${name}'s`} />
+          <button onClick={handleLikeClick} className="Product-IconBtn like">
+            <img
+              className="Product-Icon like"
+              src={HeartIcon}
+              alt="Like Icon"
+            />
+          </button>
+          <button
+            onClick={handleAddToCartClick}
+            className="Product-IconBtn cart"
+          >
+            <div className="Product-IconContainer cart">
+              <img
+                className="Product-Icon cart"
+                src={CartIcon}
+                alt="Add to cart Icon"
+              />
+            </div>
+          </button>
+        </div>
+
         <div className="Product-Footer">
           <h4 className="Product-Title">{name}</h4>
           <h3 className="Product-Price">${price}</h3>
