@@ -15,6 +15,16 @@ const result = gql`
         gallery
         description
         category
+        attributes {
+          id
+          name
+          type
+          items {
+            displayValue
+            value
+            id
+          }
+        }
         prices {
           currency
           amount

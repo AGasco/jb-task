@@ -4,10 +4,25 @@ import Stars from './Stars';
 import HeartIcon from '../assets/Heart.png';
 import CartIcon from '../assets/emptyCart.png';
 
-function Product({ data }) {
+import { withRouter } from 'react-router-dom';
+
+function Product({ data, history }) {
   const selectCorrectPrice = (prices) => {
     return prices[0].amount;
   };
+
+  const handleProductClick = () => {
+    const { name } = data;
+    console.log(history);
+
+    const url = name.toLowerCase().split(' ').join('-');
+
+    history.push(history.location.pathname + '/' + url);
+  };
+
+  const handleLikeClick = () => {};
+
+  const handleAddToCartClick = () => {};
 
   const renderProduct = () => {
     const { category, description, gallery, inStock, name, prices } = data;
@@ -20,12 +35,8 @@ function Product({ data }) {
       return Math.floor(Math.random() * 100);
     };
 
-    const handleLikeClick = () => {};
-
-    const handleAddToCartClick = () => {};
-
     return (
-      <div className="Product">
+      <div className="Product" onClick={handleProductClick}>
         <div className="Product-PictureContainer">
           <img className="Product-Picture" src={gallery[0]} alt={`${name}'s`} />
           <button onClick={handleLikeClick} className="Product-IconBtn like">
@@ -63,4 +74,4 @@ function Product({ data }) {
   return renderProduct();
 }
 
-export default Product;
+export default withRouter(Product);

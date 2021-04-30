@@ -1,16 +1,16 @@
 import Navbar from './components/Navbar';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import Categories from './components/Categories';
+import ProductPage from './components/ProductPage';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
       <Switch>
-        <Route path="/women" component={Categories} />
-        <Route path="/men" component={Categories} />
-        <Route path="/kids" component={Categories} />
-        <Route exact path="/" component={Categories} />
+        <Route path="/:category/:productName" children={ProductPage} />
+        <Route path="/:category" children={Categories} />
+        <Route exact path="/" children={Categories} />
       </Switch>
     </div>
   );
