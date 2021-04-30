@@ -1,0 +1,39 @@
+.Navbar {
+  height: $navbar-height;
+  width: $content-width;
+  background-color: $white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+
+  &-Categories {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    height: 100%;
+  }
+
+  &-Logo {
+    width: 41px;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+
+  &-Link {
+    text-decoration: none;
+    padding: 30px 1rem;
+
+    color: $main-text-color;
+
+    &.active {
+      color: $highlight-text-color;
+      border-bottom: 1px solid $highlight-text-color;
+    }
+  }
+
+  &-Handlers {
+    display: flex;
+    align-items: center;
+  }
+}

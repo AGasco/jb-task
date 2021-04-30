@@ -1,0 +1,30 @@
+.NavButton {
+  position: relative;
+
+  &-Overlay {
+    background-color: $black;
+    color: $white;
+    height: max-content;
+    width: 325px;
+
+    position: absolute;
+    top: 80px;
+    right: 2rem;
+  }
+
+  &-Currency {
+    display: flex;
+    font-size: 18px;
+
+    @include button;
+    @include ralewayFont;
+
+    & > * {
+      padding: 2.5px;
+    }
+  }
+
+  &-Cart {
+    @include button;
+  }
+}

@@ -1,0 +1,18 @@
+$white: #fff;
+$black: #000;
+$content-width: 90vw;
+$main-text-color: #1d1f22;
+$highlight-text-color: #5ece7b;
+$navbar-height: 80px;
+
+@mixin ralewayFont {
+  font-family: 'Raleway';
+  font-weight: 500;
+}
+
+@mixin button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+}
