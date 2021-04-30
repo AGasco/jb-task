@@ -10,14 +10,17 @@ function Stars({ rating, votes }) {
     index + 1 > rating ? 0 : 1
   );
 
-  const renderStar = (green) => {
-    if (green) return <img src={GreenStar} alt="star" className={GREEN_STAR} />;
-    return <img src={GreyStar} alt="star" className={GREY_STAR} />;
+  const renderStar = (green, index) => {
+    if (green)
+      return (
+        <img src={GreenStar} alt="star" key={index} className={GREEN_STAR} />
+      );
+    return <img src={GreyStar} alt="star" key={index} className={GREY_STAR} />;
   };
 
   return (
     <div className="Stars">
-      {array.map((s) => renderStar(s))}
+      {array.map((s, i) => renderStar(s, i))}
       <span className="Stars-Votes">{`(${votes})`}</span>
     </div>
   );

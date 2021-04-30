@@ -1,5 +1,6 @@
 $white: #fff;
 $black: #1d1f22;
+$grey: #a6a6a6;
 $content-width: 90vw;
 $main-text-color: #1d1f22;
 $highlight-text-color: #5ece7b;
@@ -13,7 +14,19 @@ $product-picture-width: 355px;
 $product-picture-height: 330px;
 
 @mixin ralewayFont {
-  font-family: 'Raleway';
+  font-family: 'Raleway', sans-serif;
+}
+
+@mixin robotoFont {
+  font-family: 'Roboto', sans-serif;
+}
+
+@mixin robotoCondensedFont {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+@mixin sourceSansProFont {
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 @mixin button {

@@ -7,7 +7,7 @@ function Category({ title, products }) {
       <h1>{title}</h1>
       <div className="Category-Products">
         {products?.map((p) => (
-          <Product data={p} />
+          <Product data={p} key={p.name} />
         ))}
       </div>
     </div>

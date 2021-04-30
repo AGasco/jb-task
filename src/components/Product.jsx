@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Stars from './Stars';
 
 import HeartIcon from '../assets/Heart.png';
@@ -6,17 +6,21 @@ import CartIcon from '../assets/emptyCart.png';
 
 import { withRouter } from 'react-router-dom';
 
-function Product({ data, history }) {
+import { connect } from 'react-redux';
+import { selectProduct } from '../redux/actions';
+
+function Product({ data, history, selectProduct }) {
   const selectCorrectPrice = (prices) => {
     return prices[0].amount;
   };
 
   const handleProductClick = () => {
     const { name } = data;
-    console.log(history);
+    // console.log(history);
 
     const url = name.toLowerCase().split(' ').join('-');
 
+    selectProduct(data);
     history.push(history.location.pathname + '/' + url);
   };
 
@@ -31,8 +35,10 @@ function Product({ data, history }) {
 
     const price = selectCorrectPrice(prices);
 
-    const rng = () => {
-      return Math.floor(Math.random() * 100);
+    const rng = (max) => {
+      // that (2 + ...) is to beautify a bit the random ratings
+      // green stars are prettier than grey ones anyways :P
+      return Math.floor(2 + Math.random() * max);
     };
 
     return (
@@ -64,7 +70,7 @@ function Product({ data, history }) {
           <h4 className="Product-Title">{name}</h4>
           <h3 className="Product-Price">${price}</h3>
           <div className="Product-Stars">
-            <Stars rating={4} votes={rng()} />
+            <Stars rating={rng(5)} votes={rng(100)} />
           </div>
         </div>
       </div>
@@ -74,4 +80,8 @@ function Product({ data, history }) {
   return renderProduct();
 }
 
-export default withRouter(Product);
+const mapDispatchToProps = {
+  selectProduct
+};
+
+export default withRouter(connect(null, mapDispatchToProps)(Product));

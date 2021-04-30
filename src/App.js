@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <Navbar />
       <Switch>
-        <Route path="/:category/:productName" children={ProductPage} />
+        <Route path="/:category/:productName" component={ProductPage} />
         <Route path="/:category" children={Categories} />
         <Route exact path="/" children={Categories} />
       </Switch>

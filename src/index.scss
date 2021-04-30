@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Roboto&family=Roboto+Condensed:wght@700&family=Raleway:wght@300;400;500;600&display=swap');
 
 @import './App', './styles/variables', './styles/Navbar', './styles/NavButton',
-  './styles/Category', './styles/Product', './styles/Stars';
+  './styles/Category', './styles/Product', './styles/Stars',
+  './styles/ProductPage';
 
 body {
   width: 100vw;
