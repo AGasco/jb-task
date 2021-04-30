@@ -61,8 +61,6 @@ function Navbar() {
             <img src={CartIcon} alt="Icon of a minicart" />
           </div>
         </NavButton>
-        {/* <button className="Navbar-Handlers__currencyBtn"></button> */}
-        {/* <button className="Navbar-Handlers__cartBtn"></button> */}
       </div>
     </div>
   );

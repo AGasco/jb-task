@@ -31,8 +31,6 @@ function Product({ data, history, selectProduct }) {
   const renderProduct = () => {
     const { category, description, gallery, inStock, name, prices } = data;
 
-    console.log(data);
-
     const price = selectCorrectPrice(prices);
 
     const rng = (max) => {

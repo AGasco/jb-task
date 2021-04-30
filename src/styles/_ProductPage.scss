@@ -1,3 +1,8 @@
+:root {
+  $option-color-cyan: #03fff7;
+  $option-color-blue: #030bff;
+}
+
 .ProductPage {
   height: 100vh;
   max-height: 600px;
@@ -112,6 +117,43 @@
       justify-content: center;
       align-items: center;
 
+      &.Color {
+        &.White {
+          background-color: $white;
+        }
+
+        &.Black {
+          background-color: $black;
+        }
+
+        &.Green {
+          background-color: #44ff03;
+        }
+
+        &.Cyan {
+          background-color: #03fff7;
+        }
+
+        &.Blue {
+          background-color: #030bff;
+          color: rgb(94, 206, 123);
+        }
+
+        &.active {
+          border: 2px solid rgb(94, 206, 123);
+          box-shadow: rgba(94, 206, 123, 0.4) 0px 5px,
+            rgba(94, 206, 123, 0.3) 0px 10px, rgba(94, 206, 123, 0.2) 0px 15px,
+            rgba(94, 206, 123, 0.1) 0px 20px, rgba(94, 206, 123, 0.05) 0px 25px;
+        }
+      }
+
+      &.active {
+        background-color: #1d1f22;
+        p {
+          color: $white;
+        }
+      }
+
       p {
         @include sourceSansProFont;
 
@@ -120,6 +162,9 @@
         font-size: 16px;
         line-height: 18px;
         letter-spacing: 0.05em;
+
+        user-select: none;
+        pointer-events: none;
       }
     }
   }
