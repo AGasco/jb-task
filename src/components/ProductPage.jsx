@@ -2,6 +2,7 @@ import { queryAllByAttribute } from '@testing-library/dom';
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
+import Attributes from './Attributes';
 
 class ProductPage extends Component {
   state = {
@@ -32,7 +33,7 @@ class ProductPage extends Component {
     });
   };
 
-  onAttributeSelected = (e) => {
+  handleAttributeSelect = (e) => {
     const copiedArr = [...this.state.selectedAttributes];
 
     console.log('arr', this.props.data.attributes);
@@ -50,50 +51,54 @@ class ProductPage extends Component {
     });
   };
 
-  isAttributeSelected = (name, value) => {
-    const attribute = this.state.selectedAttributes.find(
-      (a) => a.name === name
-    );
-
-    if (!attribute) return;
-
-    return attribute.selected === value ? 'active' : '';
-  };
-
-  renderAttribute = (attr) => {
-    const { attributes } = this.props.data;
-    // console.log('rendering attribute', attr);
-
-    if (!attributes || attributes.length === 0) return;
-
+  renderAltPictures = (altPictures, name) => {
     return (
-      <div className="ProductPage-Attribute">
-        <h4 className="ProductPage-Attribute-Label">
-          {attr.name.toUpperCase()}:
-        </h4>
-        <div className="ProductPage-Attribute-Options">
-          {attr.items.map((option, index) => (
-            <div
-              id={index}
-              key={index}
-              name={attr.name}
-              className={`ProductPage-Attribute-Option ${
-                attr.name === 'Color' ? `Color ${option.displayValue}` : ''
-              } ${this.isAttributeSelected(attr.name, index)}`}
-              onClick={this.onAttributeSelected}
-            >
-              {this.renderAttributeValue(attr, option)}
-            </div>
-          ))}
-        </div>
+      <div className="ProductPage-AltPictures">
+        {altPictures.map((pic, index) => (
+          <img
+            onClick={() => this.onSidePictureClick(index)}
+            src={pic}
+            key={name + index}
+            alt={`${name}`}
+          />
+        ))}
       </div>
     );
   };
 
-  renderAttributeValue = (attr, option) => {
-    if (attr.name === 'Color')
-      return <p className={`Color ${option.displayValue}`}></p>;
-    return <p>{option.displayValue}</p>;
+  renderMainPicture = (mainPicture, name) => {
+    return (
+      <div className="ProductPage-MainPicture">
+        <img src={mainPicture} alt={name} />
+      </div>
+    );
+  };
+
+  renderProductInfo = (attributes, name, price, description) => {
+    const { selectedAttributes } = this.state;
+
+    return (
+      <div className="ProductPage-Info">
+        <h1 className="ProductPage-Title">{name}</h1>
+        <Attributes
+          attributes={attributes}
+          selectedAttributes={selectedAttributes}
+          onAttributeSelect={this.handleAttributeSelect}
+        />
+        {/* <div className="ProductPage-Attributes">
+          {attributes.map((attr) => this.renderAttribute(attr))}
+        </div> */}
+        <div className="ProductPage-PriceContainer">
+          <h4 className="ProductPage-PriceLabel">PRICE:</h4>
+          <h3 className="ProductPage-Price">${price}</h3>
+        </div>
+        <button className="ProductPage-AddToCartBtn">ADD TO CART</button>
+        <div
+          className="ProductPage-Description"
+          dangerouslySetInnerHTML={{ __html: description }}
+        ></div>
+      </div>
+    );
   };
 
   render() {
@@ -102,34 +107,9 @@ class ProductPage extends Component {
 
     return (
       <div className="ProductPage">
-        <div className="ProductPage-AltPictures">
-          {altPictures.map((pic, index) => (
-            <img
-              onClick={() => this.onSidePictureClick(index)}
-              src={pic}
-              key={name + index}
-              alt={`${name}`}
-            />
-          ))}
-        </div>
-        <div className="ProductPage-MainPicture">
-          <img src={mainPicture} alt={name} />
-        </div>
-        <div className="ProductPage-Info">
-          <h1 className="ProductPage-Title">{name}</h1>
-          <div className="ProductPage-Attributes">
-            {attributes.map((attr) => this.renderAttribute(attr))}
-          </div>
-          <div className="ProductPage-PriceContainer">
-            <h4 className="ProductPage-PriceLabel">PRICE:</h4>
-            <h3 className="ProductPage-Price">${price}</h3>
-          </div>
-          <button className="ProductPage-AddToCartBtn">ADD TO CART</button>
-          <div
-            className="ProductPage-Description"
-            dangerouslySetInnerHTML={{ __html: description }}
-          ></div>
-        </div>
+        {this.renderAltPictures(altPictures, name)}
+        {this.renderMainPicture(mainPicture, name)}
+        {this.renderProductInfo(attributes, name, price, description)}
       </div>
     );
   }

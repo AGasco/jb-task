@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Stars from './Stars';
 
 import HeartIcon from '../assets/Heart.png';
@@ -9,73 +9,98 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectProduct } from '../redux/actions';
 
-function Product({ data, history, selectProduct }) {
-  const selectCorrectPrice = (prices) => {
+// ({ data, history, selectProduct })
+
+class Product extends Component {
+  selectCorrectPrice = (prices) => {
     return prices[0].amount;
   };
 
-  const handleProductClick = () => {
-    const { name } = data;
-    // console.log(history);
+  handleProductClick = () => {
+    const { data, history, selectProduct } = this.props;
 
-    const url = name.toLowerCase().split(' ').join('-');
+    const url = data.name.toLowerCase().split(' ').join('-');
 
     selectProduct(data);
-    history.push(history.location.pathname + '/' + url);
+    this.props.history.push(history.location.pathname + '/' + url);
   };
 
-  const handleLikeClick = () => {};
+  handleLikeClick = () => {};
 
-  const handleAddToCartClick = () => {};
+  handleAddToCartClick = () => {};
 
-  const renderProduct = () => {
-    const { category, description, gallery, inStock, name, prices } = data;
-
-    const price = selectCorrectPrice(prices);
-
-    const rng = (max) => {
-      // that (2 + ...) is to beautify a bit the random ratings
-      // green stars are prettier than grey ones anyways :P
-      return Math.floor(2 + Math.random() * max);
-    };
+  renderPicture = () => {
+    const { name, gallery } = this.props.data;
 
     return (
-      <div className="Product" onClick={handleProductClick}>
-        <div className="Product-PictureContainer">
-          <img className="Product-Picture" src={gallery[0]} alt={`${name}'s`} />
-          <button onClick={handleLikeClick} className="Product-IconBtn like">
-            <img
-              className="Product-Icon like"
-              src={HeartIcon}
-              alt="Like Icon"
-            />
-          </button>
-          <button
-            onClick={handleAddToCartClick}
-            className="Product-IconBtn cart"
-          >
-            <div className="Product-IconContainer cart">
-              <img
-                className="Product-Icon cart"
-                src={CartIcon}
-                alt="Add to cart Icon"
-              />
-            </div>
-          </button>
-        </div>
+      <div className="Product-PictureContainer">
+        <img className="Product-Picture" src={gallery[0]} alt={`${name}'s`} />
+        {this.renderIcons()}
+      </div>
+    );
+  };
 
-        <div className="Product-Footer">
-          <h4 className="Product-Title">{name}</h4>
-          <h3 className="Product-Price">${price}</h3>
-          <div className="Product-Stars">
-            <Stars rating={rng(5)} votes={rng(100)} />
+  renderIcons = () => {
+    return (
+      <>
+        <button onClick={this.handleLikeClick} className="Product-IconBtn like">
+          <img className="Product-Icon like" src={HeartIcon} alt="Like Icon" />
+        </button>
+        <button
+          onClick={this.handleAddToCartClick}
+          className="Product-IconBtn cart"
+        >
+          <div className="Product-IconContainer cart">
+            <img
+              className="Product-Icon cart"
+              src={CartIcon}
+              alt="Add to cart Icon"
+            />
           </div>
+        </button>
+      </>
+    );
+  };
+
+  renderFooter = () => {
+    const { name, prices } = this.props.data;
+
+    const price = this.selectCorrectPrice(prices);
+
+    return (
+      <div className="Product-Footer">
+        <h4 className="Product-Title">{name}</h4>
+        <h3 className="Product-Price">${price}</h3>
+        <div className="Product-Stars">
+          <Stars rating={this.rng(5)} votes={this.rng(100)} />
         </div>
       </div>
     );
   };
 
-  return renderProduct();
+  render() {
+    const {
+      category,
+      description,
+      gallery,
+      inStock,
+      name,
+      prices
+    } = this.props.data;
+
+    return (
+      <div className="Product" onClick={this.handleProductClick}>
+        {this.renderPicture()}
+        {this.renderFooter()}
+      </div>
+    );
+  }
+
+  rng = (max) => {
+    // that (2 + ...) is to beautify a bit the random ratings
+    // green stars are prettier than grey ones anyways :P
+    return Math.floor(2 + Math.random() * max);
+  };
 }
 
 const mapDispatchToProps = {
