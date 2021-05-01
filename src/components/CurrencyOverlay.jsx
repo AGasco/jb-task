@@ -13,20 +13,17 @@ function CurrencyOverlay({ currencies, selectCurrency, onCurrencyClick }) {
 
   return (
     <div className="CurrencyOverlay">
-      {currencies.map((c) => {
-        console.log('currency', c);
-        return (
-          <div
-            className="CurrencyOverlay-Currency"
-            onClick={() => handleCurrencySelect(c)}
-          >
-            <span className="CurrencyOverlay-Currency__symbol">
-              {returnCurrencySymbol(c)}
-            </span>
-            {c}
-          </div>
-        );
-      })}
+      {currencies.map((c) => (
+        <div
+          className="CurrencyOverlay-Currency"
+          onClick={() => handleCurrencySelect(c)}
+        >
+          <span className="CurrencyOverlay-Currency__symbol">
+            {returnCurrencySymbol(c)}
+          </span>
+          {c}
+        </div>
+      ))}
     </div>
   );
 }

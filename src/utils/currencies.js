@@ -3,8 +3,6 @@ export const returnCurrencySymbol = (currency) => {
     case 'USD':
     case 'AUD':
       return '$';
-    case 'EUR':
-      return '€';
     case 'GBP':
       return '£';
     case 'JPY':

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import Stars from './Stars';
 
 import HeartIcon from '../assets/Heart.png';
@@ -11,11 +11,25 @@ import { selectProduct } from '../redux/actions';
 
 import { returnCurrencySymbol } from './../utils/currencies';
 
+import PropTypes from 'prop-types';
+
 // ({ data, history, selectProduct, currency })
 
 class Product extends Component {
+  propTypes = {
+    data: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    selectProduct: PropTypes.func.isRequired,
+    currency: PropTypes.string.isRequired
+  };
+
   selectCorrectPrice = (prices) => {
-    return prices[0].amount;
+    console.log(prices);
+    console.log('currency', this.props.currency);
+    const price = prices.find((p) => p.currency === this.props.currency);
+    if (price) return price.amount;
+
+    return 'No stock';
   };
 
   handleProductClick = () => {

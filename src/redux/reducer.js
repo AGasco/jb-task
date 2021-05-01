@@ -9,7 +9,7 @@ import {
 const initialState = {
   category: '',
   currencies: [],
-  currency: 'EUR',
+  currency: 'RUB',
   products: [],
   product: {},
   cartItems: []

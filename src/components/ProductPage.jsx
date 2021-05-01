@@ -1,12 +1,20 @@
-import { queryAllByAttribute } from '@testing-library/dom';
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import Attributes from './Attributes';
 
+import { returnCurrencySymbol } from './../utils/currencies';
+
+import PropTypes from 'prop-types';
+
 class ProductPage extends Component {
+  propTypes = {
+    data: PropTypes.object.isRequired,
+    currency: PropTypes.string.isRequired
+  };
+
   state = {
-    price: '$',
+    price: '',
     mainPicture: '',
     altPictures: [],
     selectedAttributes: []
@@ -88,15 +96,27 @@ class ProductPage extends Component {
         {/* <div className="ProductPage-Attributes">
           {attributes.map((attr) => this.renderAttribute(attr))}
         </div> */}
-        <div className="ProductPage-PriceContainer">
-          <h4 className="ProductPage-PriceLabel">PRICE:</h4>
-          <h3 className="ProductPage-Price">${price}</h3>
-        </div>
+        {this.renderPrice(price)}
+
         <button className="ProductPage-AddToCartBtn">ADD TO CART</button>
         <div
           className="ProductPage-Description"
           dangerouslySetInnerHTML={{ __html: description }}
         ></div>
+      </div>
+    );
+  };
+
+  renderPrice = (price) => {
+    return (
+      <div className="ProductPage-PriceContainer">
+        <h4 className="ProductPage-PriceLabel">PRICE:</h4>
+        <h3 className="ProductPage-Price">
+          <span className="ProductPage-Price__symbol">
+            {returnCurrencySymbol(this.props.currency)}
+          </span>
+          {price}
+        </h3>
       </div>
     );
   };
@@ -116,7 +136,8 @@ class ProductPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  data: state.product
+  data: state.product,
+  currency: state.currency
 });
 
 export default connect(mapStateToProps)(ProductPage);
