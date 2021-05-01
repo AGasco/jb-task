@@ -7,11 +7,42 @@
     @include ralewayFont;
   }
 
+  &__outOfStock {
+    pointer-events: none;
+  }
+
   &-PictureContainer {
     width: $product-picture-width;
     height: $product-picture-height;
 
     position: relative;
+
+    &__outOfStock {
+      &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 300;
+        top: 0;
+        right: 0;
+
+        background-color: rgba(255, 255, 255, 0.7);
+      }
+
+      &::after {
+        content: 'OUT OF STOCK';
+        position: absolute;
+        top: 50%;
+        right: 30%;
+        z-index: 350;
+
+        color: #8d8f9a;
+        font-size: 24px;
+
+        @include ralewayFont;
+      }
+    }
   }
 
   &-Picture {
@@ -34,6 +65,10 @@
     transition: opacity 0.3s ease-in-out;
 
     @include button;
+
+    &.cart {
+      z-index: 200;
+    }
   }
 
   &-IconContainer {
@@ -49,6 +84,12 @@
       height: 52px;
 
       filter: drop-shadow(0px 4px 11px rgba(29, 31, 34, 0.1));
+    }
+  }
+
+  &-Footer {
+    &__outOfStock {
+      color: #8d8f9a;
     }
   }
 

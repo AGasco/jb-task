@@ -6,11 +6,14 @@ import Attributes from './Attributes';
 import { returnCurrencySymbol } from './../utils/currencies';
 
 import PropTypes from 'prop-types';
+import { addProductToCart } from './../redux/actions';
 
 class ProductPage extends Component {
   propTypes = {
     data: PropTypes.object.isRequired,
-    currency: PropTypes.string.isRequired
+    currency: PropTypes.string.isRequired,
+    addProductToCart: PropTypes.func.isRequired,
+    cartItems: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   state = {
@@ -22,6 +25,8 @@ class ProductPage extends Component {
 
   componentDidMount() {
     const { gallery, prices, attributes } = this.props.data;
+
+    console.log('data', this.props.data);
 
     this.setState({
       price: prices[0].amount,
@@ -59,6 +64,12 @@ class ProductPage extends Component {
     });
   };
 
+  handleAddToCartClick = () => {
+    const { data, cartItems, addProductToCart } = this.props;
+
+    addProductToCart(cartItems, data.name);
+  };
+
   renderAltPictures = (altPictures, name) => {
     return (
       <div className="ProductPage-AltPictures">
@@ -93,12 +104,14 @@ class ProductPage extends Component {
           selectedAttributes={selectedAttributes}
           onAttributeSelect={this.handleAttributeSelect}
         />
-        {/* <div className="ProductPage-Attributes">
-          {attributes.map((attr) => this.renderAttribute(attr))}
-        </div> */}
         {this.renderPrice(price)}
 
-        <button className="ProductPage-AddToCartBtn">ADD TO CART</button>
+        <button
+          className="ProductPage-AddToCartBtn"
+          onClick={this.handleAddToCartClick}
+        >
+          ADD TO CART
+        </button>
         <div
           className="ProductPage-Description"
           dangerouslySetInnerHTML={{ __html: description }}
@@ -137,7 +150,12 @@ class ProductPage extends Component {
 
 const mapStateToProps = (state) => ({
   data: state.product,
-  currency: state.currency
+  currency: state.currency,
+  cartItems: state.cartItems
 });
 
-export default connect(mapStateToProps)(ProductPage);
+const mapDispatchToProps = {
+  addProductToCart
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductPage);

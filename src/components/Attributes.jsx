@@ -60,7 +60,7 @@ class Attributes extends Component {
 
     return (
       <div className="Attributes">
-        {attributes.map((attr) => this.renderAttribute(attr))}
+        {attributes?.map((attr) => this.renderAttribute(attr))}
       </div>
     );
   }

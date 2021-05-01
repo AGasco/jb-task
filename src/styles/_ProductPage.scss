@@ -85,6 +85,8 @@
   }
 
   &-Description {
+    max-height: 30%;
+    overflow-y: scroll;
     * {
       @include robotoFont;
     }

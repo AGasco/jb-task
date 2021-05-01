@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+
+import App from '../App';
 
 import { connect } from 'react-redux';
 
@@ -41,18 +43,24 @@ const query = gql`
 `;
 
 function GraphqlHandler({ selectCategory, setAllProducts, setAllCurrencies }) {
+  console.log('starting the thang');
+
   const { loading, error, data } = useQuery(query);
 
   if (loading) return 'Loading...';
   if (error) return 'Error: ' + error;
 
-  console.log(data);
+  // console.log(data);
 
   selectCategory(data.category);
   setAllProducts(data.category.products);
   setAllCurrencies(data.currencies);
 
-  return <></>;
+  return (
+    <>
+      <App />
+    </>
+  );
 }
 
 const mapDispatchToProps = {

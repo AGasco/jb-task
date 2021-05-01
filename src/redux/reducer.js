@@ -3,7 +3,9 @@ import {
   SET_ALL_CURRENCIES,
   SELECT_CATEGORY,
   SELECT_PRODUCT,
-  SELECT_CURRENCY
+  SELECT_CURRENCY,
+  ADD_PRODUCT_TO_CART,
+  REMOVE_PRODUCT_FROM_CART
 } from './actions';
 
 const initialState = {
@@ -41,6 +43,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currency: action.payload.currency
+      };
+    case ADD_PRODUCT_TO_CART:
+      return {
+        ...state,
+        cartItems: action.payload.cartItems
+      };
+    case REMOVE_PRODUCT_FROM_CART:
+      return {
+        ...state,
+        cartItems: action.payload.cartItems
       };
     default:
       return state;
