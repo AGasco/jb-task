@@ -1,0 +1,26 @@
+.Category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: $content-width;
+  margin: 0 auto;
+
+  &-Title {
+    @include ralewayFont;
+    font-weight: normal;
+    font-size: 42px;
+    text-align: left;
+
+    align-self: flex-start;
+    padding-left: 10vw;
+    padding-top: 20px;
+  }
+
+  &-Products {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}

@@ -1,12 +1,26 @@
-@import "./App", "./styles/Navbar";
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Roboto&family=Roboto+Condensed:wght@700&family=Raleway:wght@300;400;500;600&display=swap');
+
+@import './App', './styles/variables', './styles/Navbar', './styles/NavButton',
+  './styles/Category', './styles/Product', './styles/Stars',
+  './styles/ProductPage', './styles/Attributes', './styles/Overlay',
+  './styles/CartPage';
 
 body {
-  margin: 0;
+  width: 100vw;
+  height: 100vh;
+
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
 }
 
 code {

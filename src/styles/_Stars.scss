@@ -1,0 +1,19 @@
+.Stars {
+  display: flex;
+  align-items: center;
+
+  &-Star {
+    width: 15px;
+    height: 15px;
+    object-fit: cover;
+  }
+
+  &-Votes {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 160%;
+    padding-left: 5px;
+
+    @include ralewayFont;
+  }
+}
