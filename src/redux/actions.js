@@ -33,11 +33,10 @@ export const selectCurrency = (currency) => ({
   payload: { currency }
 });
 
-export const addProductToCart = (cartItems, name) => {
+export const addProductToCart = (cartItems, data) => {
   let includesProduct = false;
   for (let item of cartItems) {
-    console.log('item.name', item.name);
-    if (item.name === name) {
+    if (item.name === data.name) {
       includesProduct = true;
       item.amount++;
       break;
@@ -46,18 +45,25 @@ export const addProductToCart = (cartItems, name) => {
 
   if (!includesProduct) {
     cartItems.push({
-      name,
+      ...data,
       amount: 1
     });
   }
-
-  console.log(cartItems);
 
   return { type: ADD_PRODUCT_TO_CART, payload: { cartItems } };
 };
 
 export const removeProductFromCart = (cartItems, name) => {
-  const index = cartItems.find((item) => item.name === name);
-  cartItems.splice(index, 1);
+  cartItems.map((item) => {
+    if (item.name === name) {
+      if (item.amount === 1) {
+        const index = cartItems.map((item) => item.name === name);
+        cartItems.splice(index, 1);
+      } else {
+        item.amount--;
+      }
+    }
+  });
+
   return { type: REMOVE_PRODUCT_FROM_CART, payload: { cartItems } };
 };

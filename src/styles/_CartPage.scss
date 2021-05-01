@@ -1,0 +1,74 @@
+.CartPage {
+  width: $content-width;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  &-Title {
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 40px;
+    text-transform: uppercase;
+
+    @include ralewayFont;
+  }
+
+  &Item {
+    max-width: 80vw;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+    padding: 20px 0;
+    border-top: 1px solid #e5e5e5;
+
+    &-Info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      flex: 1;
+      padding-right: 10px;
+      max-width: 40%;
+
+      &-Name {
+        font-weight: 300;
+        font-size: 30px;
+        line-height: 27px;
+      }
+
+      &-Price {
+        font-weight: 500;
+        font-size: 24px;
+        list-style: 160%;
+
+        &__symbol {
+          padding-right: 10px;
+        }
+      }
+    }
+
+    &-Picture {
+      display: flex;
+      align-items: center;
+
+      &-Buttons {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-right: 5px;
+
+        button {
+          border: 1px solid #1d1f22;
+          background-color: $white;
+          cursor: pointer;
+        }
+      }
+
+      img {
+        width: 145px;
+        height: 200px;
+        object-fit: contain;
+      }
+    }
+  }
+}

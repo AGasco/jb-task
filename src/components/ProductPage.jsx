@@ -67,7 +67,14 @@ class ProductPage extends Component {
   handleAddToCartClick = () => {
     const { data, cartItems, addProductToCart } = this.props;
 
-    addProductToCart(cartItems, data.name);
+    const relevantData = {
+      name: data.name,
+      prices: data.prices,
+      attributes: data.attributes,
+      picture: data.gallery[0]
+    };
+
+    addProductToCart(cartItems, relevantData);
   };
 
   renderAltPictures = (altPictures, name) => {

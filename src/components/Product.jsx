@@ -13,16 +13,14 @@ import { returnCurrencySymbol } from './../utils/currencies';
 
 import PropTypes from 'prop-types';
 
-// ({ data, history, selectProduct, currency })
-
 class Product extends Component {
-  propTypes = {
+  static propTypes = {
     data: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     selectProduct: PropTypes.func.isRequired,
     addProductToCart: PropTypes.func.isRequired,
     currency: PropTypes.string.isRequired,
-    cartItems: PropTypes.arrayOf(PropTypes.object).isRequired
+    cartItems: PropTypes.array.isRequired
   };
 
   selectCorrectPrice = (prices) => {
@@ -49,10 +47,18 @@ class Product extends Component {
   handleAddToCartClick = (e) => {
     e.stopPropagation();
 
-    const { cartItems, addProductToCart } = this.props;
-    const { name } = this.props.data;
+    const { data, cartItems, addProductToCart } = this.props;
 
-    addProductToCart(cartItems, name);
+    const relevantData = {
+      name: data.name,
+      prices: data.prices,
+      attributes: data.attributes,
+      picture: data.gallery[0]
+    };
+
+    console.log('relevantData', relevantData);
+
+    addProductToCart(cartItems, relevantData);
   };
 
   renderPicture = () => {
@@ -101,8 +107,8 @@ class Product extends Component {
   };
 
   renderFooter = () => {
-    const { currency, inStock } = this.props;
-    const { name, prices } = this.props.data;
+    const { currency } = this.props;
+    const { name, prices, inStock } = this.props.data;
 
     const price = this.selectCorrectPrice(prices);
 

@@ -50,7 +50,7 @@ function GraphqlHandler({ selectCategory, setAllProducts, setAllCurrencies }) {
   if (loading) return 'Loading...';
   if (error) return 'Error: ' + error;
 
-  // console.log(data);
+  console.log(data);
 
   selectCategory(data.category);
   setAllProducts(data.category.products);
