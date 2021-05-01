@@ -1,55 +1,28 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Category from './Category';
 
-import { withRouter } from 'react-router-dom';
+import { withRouter, useParams } from 'react-router-dom';
 
-import { useQuery, gql } from '@apollo/client';
+import { connect } from 'react-redux';
 
-const result = gql`
-  query {
-    category {
-      name
-      products {
-        name
-        inStock
-        gallery
-        description
-        category
-        attributes {
-          id
-          name
-          type
-          items {
-            displayValue
-            value
-            id
-          }
-        }
-        prices {
-          currency
-          amount
-        }
-      }
-    }
-    currencies
-  }
-`;
+const Categories = ({ products }) => {
+  const { category } = useParams();
+  console.log('params', category);
 
-const GetCategory = () => {
-  const { loading, error, data } = useQuery(result);
+  const renderCategory = () => {
+    let newProducts = [];
 
-  if (loading) return 'Loading...';
-  if (error) return 'Error: ' + error;
+    if (category === 'all') newProducts = products;
+    else newProducts = products.filter((p) => p.category === category);
 
-  return renderCategory(data.category.name, data.category.products);
+    return <Category title={category} products={newProducts} />;
+  };
+
+  return <div>{renderCategory()}</div>;
 };
 
-const renderCategory = (title, products) => {
-  return <Category title={title} products={products} />;
-};
+const mapStateToProps = (state) => ({
+  products: state.products
+});
 
-const Categories = () => {
-  return <div>{GetCategory()}</div>;
-};
-
-export default withRouter(Categories);
+export default withRouter(connect(mapStateToProps)(Categories));

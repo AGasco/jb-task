@@ -3,8 +3,10 @@ import Logo from '../assets/logo.png';
 import CartIcon from '../assets/cartIcon.png';
 import { NavLink } from 'react-router-dom';
 import NavButton from './NavButton';
+import { connect } from 'react-redux';
+import { returnCurrencySymbol } from './../utils/currencies';
 
-function Navbar() {
+function Navbar({ currency }) {
   const [overlayStatus, setOverlayStatus] = useState({
     Currency: false,
     Cart: false
@@ -30,17 +32,14 @@ function Navbar() {
   return (
     <div className="Navbar">
       <ul className="Navbar-Categories">
-        <NavLink to="/women" className="Navbar-Link">
-          <li>WOMEN</li>
+        <NavLink to="/clothes" className="Navbar-Link">
+          <li>CLOTHES</li>
         </NavLink>
-        <NavLink to="/men" className="Navbar-Link">
-          <li>MEN</li>
-        </NavLink>
-        <NavLink to="/kids" className="Navbar-Link">
-          <li>KIDS</li>
+        <NavLink to="/tech" className="Navbar-Link">
+          <li>TECH</li>
         </NavLink>
       </ul>
-      <NavLink to="/" className="Navbar-Link logo" activeClassName="ignore">
+      <NavLink to="/all" className="Navbar-Link logo" activeClassName="ignore">
         <img className="Navbar-Logo" src={Logo} alt="Shop's logo" />
       </NavLink>
       <div className="Navbar-Handlers">
@@ -49,8 +48,8 @@ function Navbar() {
           isOverlayOpen={overlayStatus.Currency === true}
           toggleOverlay={toggleOverlay}
         >
-          <div>$</div>
-          <div className="Navbar-Handlers__currencyIcon">v</div>
+          <div>{returnCurrencySymbol(currency)}</div>
+          <div className="Navbar-Handlers__currencyIcon"></div>
         </NavButton>
         <NavButton
           elem="Cart"
@@ -66,4 +65,8 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+  currency: state.currency
+});
+
+export default connect(mapStateToProps)(Navbar);

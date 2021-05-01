@@ -63,7 +63,13 @@
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
-    line-height: 160%;
+    display: flex;
+    align-items: center;
+
+    &__symbol {
+      padding-top: 5px;
+      padding-right: 5px;
+    }
   }
 
   &-Icon {

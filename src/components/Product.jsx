@@ -9,7 +9,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectProduct } from '../redux/actions';
 
-// ({ data, history, selectProduct })
+import { returnCurrencySymbol } from './../utils/currencies';
+
+// ({ data, history, selectProduct, currency })
 
 class Product extends Component {
   selectCorrectPrice = (prices) => {
@@ -63,6 +65,7 @@ class Product extends Component {
   };
 
   renderFooter = () => {
+    const { currency } = this.props;
     const { name, prices } = this.props.data;
 
     const price = this.selectCorrectPrice(prices);
@@ -70,7 +73,12 @@ class Product extends Component {
     return (
       <div className="Product-Footer">
         <h4 className="Product-Title">{name}</h4>
-        <h3 className="Product-Price">${price}</h3>
+        <h3 className="Product-Price">
+          <span className="Product-Price__symbol">
+            {returnCurrencySymbol(currency)}
+          </span>
+          {price}
+        </h3>
         <div className="Product-Stars">
           <Stars rating={this.rng(5)} votes={this.rng(100)} />
         </div>
@@ -103,8 +111,14 @@ class Product extends Component {
   };
 }
 
+const mapStateToProps = (state) => ({
+  currency: state.currency
+});
+
 const mapDispatchToProps = {
   selectProduct
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(Product));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Product)
+);

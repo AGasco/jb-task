@@ -116,7 +116,7 @@ class ProductPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  data: state.curProduct
+  data: state.product
 });
 
 export default connect(mapStateToProps)(ProductPage);
