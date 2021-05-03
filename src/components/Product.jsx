@@ -56,8 +56,6 @@ class Product extends Component {
       picture: data.gallery[0]
     };
 
-    console.log('relevantData', relevantData);
-
     addProductToCart(cartItems, relevantData);
   };
 

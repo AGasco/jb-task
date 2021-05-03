@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { returnCurrencySymbol } from './../utils/currencies';
+import { returnCurrencySymbol, formatPrice } from './../utils/currencies';
 
 import { addProductToCart, removeProductFromCart } from './../redux/actions';
 
@@ -33,7 +33,7 @@ function CartPageItem({
           <span className="CartPageItem-Info-Price__symbol">
             {returnCurrencySymbol(currency)}
           </span>
-          {selectCorrectPrice(data.prices)}
+          {formatPrice(selectCorrectPrice(data.prices))}
         </p>
       </div>
       <div className="CartPageItem-Picture">

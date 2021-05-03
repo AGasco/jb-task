@@ -57,6 +57,8 @@ class Attributes extends Component {
 
   render() {
     const { attributes } = this.props;
+    console.log('attributes', attributes);
+    console.log('selectedAttributes', this.props.selectedAttributes);
 
     return (
       <div className="Attributes">

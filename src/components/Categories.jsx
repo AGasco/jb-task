@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 
 const Categories = ({ products }) => {
   const { category } = useParams();
-  console.log('params', category);
 
   const renderCategory = () => {
     let newProducts = [];

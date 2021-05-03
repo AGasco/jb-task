@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import CartOverlayItem from './CartOverlayItem';
 
-import { returnCurrencySymbol } from './../utils/currencies';
+import { returnCurrencySymbol, formatPrice } from './../utils/currencies';
 
 import { withRouter } from 'react-router-dom';
 
-function CartOverlay({ cartItems, currency, history }) {
+function CartOverlay({ cartItems, currency, history, toggleOverlay }) {
+  const node = useRef();
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleClickOutside = (e) => {
+    if (node.current.contains(e.target)) return;
+
+    toggleOverlay();
+  };
+
   const selectCorrectPrice = (prices) => {
     const price = prices.find((p) => p.currency === currency);
     if (price) return price.amount;
@@ -22,7 +36,7 @@ function CartOverlay({ cartItems, currency, history }) {
   };
 
   return (
-    <div className="CartOverlay">
+    <div className="CartOverlay" ref={node}>
       <h3 className="CartOverlay-Title">
         My Bag{' '}
         <span className="CartOverlay-Title__itemQty">
@@ -41,7 +55,7 @@ function CartOverlay({ cartItems, currency, history }) {
             <span className="CartOverlay-Footer-Total__symbol">
               {returnCurrencySymbol(currency)}
             </span>
-            {calculateTotal()}
+            {formatPrice(calculateTotal())}
           </p>
         </div>
         <div className="CartOverlay-Footer-Buttons">
