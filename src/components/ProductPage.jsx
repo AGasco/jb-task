@@ -26,18 +26,27 @@ class ProductPage extends Component {
   componentDidMount() {
     const { gallery, prices, attributes } = this.props.data;
 
-    console.log('data', this.props.data);
-
     this.setState({
       price: prices[0].amount,
       mainPicture: gallery[0],
       altPictures: gallery,
+      // maps every attribute to a new object like -> { name: "Size", selected: -1 }
       selectedAttributes: attributes.reduce((acc, cur) => {
         acc.push({ name: cur.name, selected: -1 });
         return acc;
       }, [])
     });
   }
+
+  areAllAttributesSelected = () => {
+    const { selectedAttributes } = this.state;
+
+    const allSelected = selectedAttributes.every(
+      (attr) => attr.selected !== -1
+    );
+    console.log(allSelected);
+    return allSelected;
+  };
 
   onSidePictureClick = (index) => {
     this.setState({
@@ -48,8 +57,6 @@ class ProductPage extends Component {
 
   handleAttributeSelect = (e) => {
     const copiedArr = [...this.state.selectedAttributes];
-
-    console.log('arr', this.props.data.attributes);
 
     const field = e.target.getAttribute('name');
     const value = e.target.id;
@@ -67,14 +74,18 @@ class ProductPage extends Component {
   handleAddToCartClick = () => {
     const { data, cartItems, addProductToCart } = this.props;
 
-    const relevantData = {
-      name: data.name,
-      prices: data.prices,
-      attributes: data.attributes,
-      picture: data.gallery[0]
-    };
+    if (this.areAllAttributesSelected()) {
+      const relevantData = {
+        name: data.name,
+        prices: data.prices,
+        attributes: data.attributes,
+        picture: data.gallery[0]
+      };
 
-    addProductToCart(cartItems, relevantData);
+      addProductToCart(cartItems, relevantData);
+    } else {
+      alert('Please select an option for each field');
+    }
   };
 
   renderAltPictures = (altPictures, name) => {

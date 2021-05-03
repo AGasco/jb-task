@@ -3,12 +3,16 @@
   height: max-content;
   display: flex;
   flex-direction: column;
-  z-index: 250;
+  z-index: 9999;
 
   font-weight: 500;
   font-size: 18px;
   line-height: 160%;
   padding: 5px 0;
+
+  position: absolute;
+  top: -3vh;
+  left: -1vw;
 
   @include ralewayFont;
 }

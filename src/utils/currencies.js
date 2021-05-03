@@ -13,3 +13,5 @@ export const returnCurrencySymbol = (currency) => {
       return;
   }
 };
+
+export const formatPrice = (price) => price.toFixed(2);

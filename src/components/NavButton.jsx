@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { connect } from 'react-redux';
 import CurrencyOverlay from './CurrencyOverlay';
@@ -8,14 +8,12 @@ const CURRENCY = 'Currency';
 const CART = 'Cart';
 
 function NavButton({ children, elem, isOverlayOpen, toggleOverlay }) {
-  const [content, setContent] = useState({});
-
   const renderOverlayContent = () => {
     switch (elem) {
       case CURRENCY:
-        return <CurrencyOverlay onCurrencyClick={() => toggleOverlay(elem)} />;
+        return <CurrencyOverlay toggleOverlay={() => toggleOverlay(elem)} />;
       case CART:
-        return <CartOverlay />;
+        return <CartOverlay toggleOverlay={() => toggleOverlay(elem)} />;
       default:
         return;
     }
