@@ -33,6 +33,7 @@
         font-weight: 300;
         font-size: 30px;
         line-height: 27px;
+        padding-bottom: 15px;
       }
 
       &-Price {
@@ -51,6 +52,7 @@
       align-items: center;
 
       &-Buttons {
+        padding: 20% 0;
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -69,6 +71,10 @@
         height: 200px;
         object-fit: contain;
       }
+    }
+
+    & .Attributes-Attribute-Option {
+      cursor: default;
     }
   }
 }

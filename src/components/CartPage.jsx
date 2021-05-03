@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import CartPageItem from './CartPageItem';
 
 function CartPage({ cartItems }) {
+  console.log('cartItems', cartItems);
+
   return (
     <div className="CartPage">
       <h1 className="CartPage-Title">Cart</h1>

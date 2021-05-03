@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { addProductToCart } from './../redux/actions';
 
 class ProductPage extends Component {
-  propTypes = {
+  static propTypes = {
     data: PropTypes.object.isRequired,
     currency: PropTypes.string.isRequired,
     addProductToCart: PropTypes.func.isRequired,
@@ -73,12 +73,14 @@ class ProductPage extends Component {
 
   handleAddToCartClick = () => {
     const { data, cartItems, addProductToCart } = this.props;
+    const { selectedAttributes } = this.state;
 
     if (this.areAllAttributesSelected()) {
       const relevantData = {
         name: data.name,
         prices: data.prices,
         attributes: data.attributes,
+        selectedAttributes,
         picture: data.gallery[0]
       };
 

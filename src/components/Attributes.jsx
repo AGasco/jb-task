@@ -2,25 +2,53 @@ import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
 
-// ({ attributes })
 class Attributes extends Component {
   propTypes = {
     attributes: PropTypes.arrayOf(PropTypes.object).isRequired,
     selectedAttributes: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onAttributeSelect: PropTypes.func.isREquired
+    onAttributeSelect: PropTypes.func
   };
 
-  isAttributeSelected = (name, value) => {
-    const attribute = this.props.selectedAttributes.find(
-      (a) => a.name === name
-    );
+  isAttributeSelected = (name, index) => {
+    const { selectedAttributes } = this.props;
+
+    // giving a default value in case none was selected
+    // i.e.: when adding to cart from Product, select first option as default
+    if (!selectedAttributes) {
+      return index === 0 ? 'active' : '';
+    }
+
+    const attribute = selectedAttributes.find((a) => a.name === name);
 
     if (!attribute) return;
 
-    return attribute.selected === value ? 'active' : '';
+    return attribute.selected === index ? 'active' : '';
   };
 
-  renderAttributeValue = (attr, option) => {
+  renderAttributes = (attr) => {
+    const { selectedAttributes } = this.props;
+
+    return attr.items.map((option, index) => {
+      if (!selectedAttributes && index > 0) return null;
+      return (
+        <div
+          id={index}
+          key={index}
+          name={attr.name}
+          className={`Attributes-Attribute-Option ${
+            attr.name === 'Color' ? `Color ${option.displayValue}` : ''
+          } ${this.isAttributeSelected(attr.name, index)}`}
+          onClick={this.props.onAttributeSelect}
+        >
+          {this.renderAttributeValue(attr, option, index)}
+        </div>
+      );
+    });
+  };
+
+  renderAttributeValue = (attr, option, index) => {
+    const { selectedAttributes } = this.props;
+
     if (attr.name === 'Color')
       return <p className={`Color ${option.displayValue}`}></p>;
     return <p>{option.displayValue}</p>;
@@ -37,19 +65,7 @@ class Attributes extends Component {
           {attr.name.toUpperCase()}:
         </h4>
         <div className="Attributes-Attribute-Options">
-          {attr.items.map((option, index) => (
-            <div
-              id={index}
-              key={index}
-              name={attr.name}
-              className={`Attributes-Attribute-Option ${
-                attr.name === 'Color' ? `Color ${option.displayValue}` : ''
-              } ${this.isAttributeSelected(attr.name, index)}`}
-              onClick={this.props.onAttributeSelect}
-            >
-              {this.renderAttributeValue(attr, option)}
-            </div>
-          ))}
+          {this.renderAttributes(attr)}
         </div>
       </div>
     );
@@ -57,8 +73,6 @@ class Attributes extends Component {
 
   render() {
     const { attributes } = this.props;
-    console.log('attributes', attributes);
-    console.log('selectedAttributes', this.props.selectedAttributes);
 
     return (
       <div className="Attributes">

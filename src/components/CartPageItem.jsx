@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Attributes from './Attributes';
+
 import { returnCurrencySymbol, formatPrice } from './../utils/currencies';
 
 import { addProductToCart, removeProductFromCart } from './../redux/actions';
@@ -29,6 +31,10 @@ function CartPageItem({
     <div className="CartPageItem">
       <div className="CartPageItem-Info">
         <p className="CartPageItem-Info-Name">{data.name}</p>
+        <Attributes
+          attributes={data.attributes}
+          selectedAttributes={data.selectedAttributes}
+        />
         <p className="CartPageItem-Info-Price">
           <span className="CartPageItem-Info-Price__symbol">
             {returnCurrencySymbol(currency)}

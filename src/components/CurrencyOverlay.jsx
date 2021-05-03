@@ -9,18 +9,18 @@ function CurrencyOverlay({ currencies, selectCurrency, toggleOverlay }) {
   const node = useRef();
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleOutsideClick);
 
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, []);
 
-  const handleClickOutside = (e) => {
+  const handleOutsideClick = (e) => {
     if (node.current.contains(e.target)) return;
 
     toggleOverlay();
   };
 
-  const handleCurrencySelect = (c) => {
+  const handleCurrencySelect = (e, c) => {
     selectCurrency(c);
     toggleOverlay();
   };
@@ -29,8 +29,9 @@ function CurrencyOverlay({ currencies, selectCurrency, toggleOverlay }) {
     <div className="CurrencyOverlay" ref={node}>
       {currencies.map((c) => (
         <div
+          key={c}
           className="CurrencyOverlay-Currency"
-          onClick={() => handleCurrencySelect(c)}
+          onClick={(e) => handleCurrencySelect(e, c)}
         >
           <span className="CurrencyOverlay-Currency__symbol">
             {returnCurrencySymbol(c)}

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { returnCurrencySymbol } from './../utils/currencies';
 
 import { addProductToCart, removeProductFromCart } from './../redux/actions';
+import Attributes from './Attributes';
 
 function CartOverlayItem({
   data,
@@ -36,6 +37,10 @@ function CartOverlayItem({
           </span>
           {selectCorrectPrice(data.prices)}
         </p>
+        <Attributes
+          attributes={data.attributes}
+          selectedAttributes={data.selectedAttributes}
+        />
       </div>
       <div className="CartOverlay-Item-Picture">
         <div className="CartOverlay-Item-Picture-Buttons">
