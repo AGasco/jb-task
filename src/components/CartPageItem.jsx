@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import Attributes from './Attributes';
@@ -14,21 +14,29 @@ function CartPageItem({
   addProductToCart,
   removeProductFromCart
 }) {
+  const [amount, setAmount] = useState(data.amount);
+  const [disable, setDisable] = useState(false);
+
   const selectCorrectPrice = (prices) => {
     const price = prices.find((p) => p.currency === currency);
     if (price) return price.amount;
   };
 
   const handleAddToCartClick = () => {
+    if (disable) setDisable(false);
+    setAmount(amount + 1);
     addProductToCart(cartItems, data);
   };
 
   const handleRemoveFromCartClick = () => {
     removeProductFromCart(cartItems, data.name);
+
+    if (amount > 1) return setAmount(amount - 1);
+    else setDisable(true);
   };
 
   return (
-    <div className="CartPageItem">
+    <div className={`CartPageItem ${disable ? 'disabled' : ''}`}>
       <div className="CartPageItem-Info">
         <p className="CartPageItem-Info-Name">{data.name}</p>
         <Attributes
@@ -45,7 +53,7 @@ function CartPageItem({
       <div className="CartPageItem-Picture">
         <div className="CartPageItem-Picture-Buttons">
           <button onClick={handleAddToCartClick}>+</button>
-          {data.amount}
+          {amount}
           <button onClick={handleRemoveFromCartClick}>-</button>
         </div>
         <img src={data.picture} alt={data.name} />

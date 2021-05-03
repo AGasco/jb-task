@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -14,21 +14,29 @@ function CartOverlayItem({
   addProductToCart,
   removeProductFromCart
 }) {
+  const [amount, setAmount] = useState(data.amount);
+  const [disable, setDisable] = useState(false);
+
   const selectCorrectPrice = (prices) => {
     const price = prices.find((p) => p.currency === currency);
     if (price) return price.amount;
   };
 
   const handleAddToCartClick = () => {
+    if (disable) setDisable(false);
+    setAmount(amount + 1);
     addProductToCart(cartItems, data);
   };
 
   const handleRemoveFromCartClick = () => {
     removeProductFromCart(cartItems, data.name);
+
+    if (amount > 1) return setAmount(amount - 1);
+    else setDisable(true);
   };
 
   return (
-    <div className="CartOverlay-Item">
+    <div className={`CartOverlay-Item ${disable ? 'disabled' : ''}`}>
       <div className="CartOverlay-Item-Info">
         <p className="CartOverlay-Item-Info-Name">{data.name}</p>
         <p className="CartOverlay-Item-Info-Price">
@@ -45,7 +53,7 @@ function CartOverlayItem({
       <div className="CartOverlay-Item-Picture">
         <div className="CartOverlay-Item-Picture-Buttons">
           <button onClick={handleAddToCartClick}>+</button>
-          {data.amount}
+          {amount}
           <button onClick={handleRemoveFromCartClick}>-</button>
         </div>
         <img src={data.picture} alt={data.name} />

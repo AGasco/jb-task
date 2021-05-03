@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Attributes extends Component {
-  propTypes = {
+  static propTypes = {
     attributes: PropTypes.arrayOf(PropTypes.object).isRequired,
     selectedAttributes: PropTypes.arrayOf(PropTypes.object).isRequired,
     onAttributeSelect: PropTypes.func
@@ -47,8 +47,6 @@ class Attributes extends Component {
   };
 
   renderAttributeValue = (attr, option, index) => {
-    const { selectedAttributes } = this.props;
-
     if (attr.name === 'Color')
       return <p className={`Color ${option.displayValue}`}></p>;
     return <p>{option.displayValue}</p>;
@@ -60,7 +58,7 @@ class Attributes extends Component {
     if (!attributes || attributes.length === 0) return;
 
     return (
-      <div className="Attributes-Attribute">
+      <div className="Attributes-Attribute" key={attr}>
         <h4 className="Attributes-Attribute-Label">
           {attr.name.toUpperCase()}:
         </h4>

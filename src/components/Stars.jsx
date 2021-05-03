@@ -38,8 +38,6 @@ class Stars extends Component {
     const { votes } = this.props;
     const { array } = this.state;
 
-    console.log('array after', array);
-
     return (
       <div className="Stars">
         {array.map((s, i) => this.renderStar(s, i))}

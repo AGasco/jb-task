@@ -13,6 +13,10 @@ $grey-star: #8d8f9a;
 $product-picture-width: 355px;
 $product-picture-height: 330px;
 
+.disabled {
+  display: none !important;
+}
+
 @mixin ralewayFont {
   font-family: 'Raleway', sans-serif;
 }
